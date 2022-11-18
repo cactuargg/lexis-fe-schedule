@@ -9,14 +9,14 @@ export const useCategoriesIds = () => {
     try {
       const response = await fetchCategoriesList();
       const flatCategories = flattenCategories(response.data);
-      setIds(flatCategories.map(category => category.id));
-    } catch (e: unknown) {
+      setIds(flatCategories.map((category) => category.id));
+    } catch (e) {
       console.error(e);
     }
   };
 
   useEffect(() => {
-    fetchCategories();
+    fetchCategories().catch((e: unknown) => console.error(e));
   }, []);
 
   return { ids };

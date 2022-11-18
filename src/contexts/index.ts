@@ -1,1 +1,1 @@
-export * from './SessionsContext';
+export * from './ScheduleContext';

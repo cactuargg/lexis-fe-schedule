@@ -1,5 +1,8 @@
-import { CategorySession } from './CategorySession';
+import { IScheduleSessionEntry } from './ScheduleSessionEntry';
+import { IDays } from './Day';
 
-export interface SessionsContextType {
-  sessions: CategorySession[]
+export interface ISessionsContextType {
+  sessions: IScheduleSessionEntry[];
+  rowsNumber: number;
+  days: IDays;
 }

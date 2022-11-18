@@ -1,9 +1,9 @@
-import { fetchSessionsByCategoryId } from './fetchSessionsByCategoryId';
 import axios from 'axios';
-import { CategorySession } from '../models';
+import { fetchSessionsByCategoryId } from './fetchSessionsByCategoryId';
+import { ICategorySession } from '../models';
 
-export function fetchSessionsByCategoryIds(ids: number[]): Promise<CategorySession[]> {
-  return axios.all(ids.map(id => fetchSessionsByCategoryId(id))).then(axios.spread((...responses) => {
-    return responses.map(response => response.data).flat();
-  }));
+export function fetchSessionsByCategoryIds(ids: number[]): Promise<ICategorySession[]> {
+  return axios
+    .all(ids.map((id) => fetchSessionsByCategoryId(id)))
+    .then(axios.spread((...responses) => responses.map((response) => response.data).flat()));
 }

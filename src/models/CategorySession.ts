@@ -1,4 +1,4 @@
-export interface CategorySession {
+export interface ICategorySession {
   id: number,
   start: string,
   end: string,

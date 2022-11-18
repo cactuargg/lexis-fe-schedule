@@ -1,2 +1,2 @@
 export * from './useCategoriesIds';
-export * from './useSessions';
+export * from './useSchedule';

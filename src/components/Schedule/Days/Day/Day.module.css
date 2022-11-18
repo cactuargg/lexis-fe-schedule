@@ -1,0 +1,7 @@
+.Container {
+    @apply sticky left-0 flex pt-4 text-white border-b border-r dark:bg-slate-900 dark:border-slate-200/5 justify-center items-center;
+}
+
+.Name {
+    @apply -rotate-90 text-3xl justify-center items-center text-slate-400;
+}
