@@ -20,7 +20,12 @@
     "import"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "import/prefer-default-export": "off",
     "react/function-component-definition": "off",
     "react/jsx-props-no-spreading": "off"
