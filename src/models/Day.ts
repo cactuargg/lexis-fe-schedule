@@ -6,7 +6,9 @@ export interface IDay {
   matrix: number[][];
 }
 
+export type IDaysDictionary = Record<string, IDay>;
+
 export interface IDays {
-  daysDictionary: Record<string, IDay>;
-  daysOrder: string[];
+  dictionary: IDaysDictionary;
+  order: string[];
 }

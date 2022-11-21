@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+
 import { useScheduleContext } from '../../../contexts';
 import { TIMES } from '../../../hooks/constants';
 import { GridCell } from './GridCell';
@@ -9,7 +10,7 @@ export const Grid = () => {
     <>
       {Array(rowsNumber)
         .fill('')
-        .map((_, row) => {
+        .map((value, row) => {
           const key = `day-row-${row}`;
           return (
             <Fragment key={key}>

@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { fetchSessionsByCategoryId } from './fetchSessionsByCategoryId';
+
 import { ICategorySession } from '../models';
+import { fetchSessionsByCategoryId } from './fetchSessionsByCategoryId';
 
 export function fetchSessionsByCategoryIds(ids: number[]): Promise<ICategorySession[]> {
   return axios

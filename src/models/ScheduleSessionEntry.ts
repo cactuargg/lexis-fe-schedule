@@ -5,5 +5,5 @@ export interface IScheduleSessionEntry {
   gridColumnStart: string;
   gridColumnEnd: string;
   gridRow: number;
-  singleDay: boolean;
+  isSingleDay: boolean;
 }

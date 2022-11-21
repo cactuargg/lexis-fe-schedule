@@ -1,8 +1,9 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
+
 import { IDay } from '../../../../models';
 import css from './Day.module.css';
 
-export const Day: React.FC<IDay> = ({ matrix, gridRow, name }) => {
+export const Day: React.FC<IDay> = ({ matrix, gridRow, date }) => {
   const [style, setStyle] = useState<CSSProperties>({
     gridRow: `${gridRow + 1} / span ${matrix.length}`,
   });
@@ -13,7 +14,7 @@ export const Day: React.FC<IDay> = ({ matrix, gridRow, name }) => {
 
   return (
     <div className={css.Container} style={style}>
-      <div className={css.Name}>{name}</div>
+      <div className={css.Name}>{date.toDateString()}</div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
-import { SessionCell } from './SessionCell';
+
 import { useScheduleContext } from '../../../contexts';
+import { SessionCell } from './SessionCell';
 
 export const Sessions = () => {
   const { sessions } = useScheduleContext();

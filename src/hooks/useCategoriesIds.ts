@@ -1,22 +1,13 @@
 import { useEffect, useState } from 'react';
-import { fetchCategoriesList } from '../api';
-import { flattenCategories } from '../utils';
+
+import { onError } from '../utils';
+import { fetchCategories } from './helpers';
 
 export const useCategoriesIds = () => {
   const [ids, setIds] = useState<number[]>([]);
 
-  const fetchCategories = async () => {
-    try {
-      const response = await fetchCategoriesList();
-      const flatCategories = flattenCategories(response.data);
-      setIds(flatCategories.map((category) => category.id));
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
-    fetchCategories().catch((e: unknown) => console.error(e));
+    fetchCategories(setIds).catch(onError);
   }, []);
 
   return { ids };

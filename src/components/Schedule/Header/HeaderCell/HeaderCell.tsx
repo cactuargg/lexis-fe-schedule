@@ -1,4 +1,5 @@
 import React, { CSSProperties } from 'react';
+
 import css from './HeaderCell.module.css';
 
 export const HeaderCell: React.FC<{ time: string } & Pick<CSSProperties, 'gridColumnStart'>> = ({
@@ -9,6 +10,8 @@ export const HeaderCell: React.FC<{ time: string } & Pick<CSSProperties, 'gridCo
     gridColumnStart,
   };
   return (
-    <div className={css.Container} style={{ ...style }}>{time}</div>
+    <div className={css.Container} style={{ ...style }}>
+      {time}
+    </div>
   );
 };

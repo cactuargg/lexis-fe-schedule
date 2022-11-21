@@ -1,4 +1,5 @@
 import React, { CSSProperties, memo } from 'react';
+
 import css from './GridCell.module.css';
 
 const MemoGridCell: React.FC<{ col: number; row: number }> = ({ col, row }) => {

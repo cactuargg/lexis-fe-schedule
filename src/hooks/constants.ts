@@ -1,7 +1,3 @@
-export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-export const THIRTY_MINS_IN_MS = 1800000;
-
 export const TIMES = [
   '12:00 AM',
   '12:30 AM',

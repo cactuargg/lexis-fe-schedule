@@ -1,3 +1,4 @@
 .Container {
-    @apply dark:border-slate-200/5 border-b border-r
+  @apply dark:border-slate-200/5 border-b border-r;
+  content-visibility: hidden;
 }

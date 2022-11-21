@@ -1,8 +1,9 @@
-import { IScheduleSessionEntry } from './ScheduleSessionEntry';
 import { IDays } from './Day';
+import { IScheduleSessionEntry } from './ScheduleSessionEntry';
 
-export interface ISessionsContextType {
+export interface IScheduleContext {
   sessions: IScheduleSessionEntry[];
   rowsNumber: number;
   days: IDays;
+  isLoaded: boolean;
 }
