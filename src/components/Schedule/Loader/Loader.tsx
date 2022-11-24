@@ -1,17 +1,16 @@
 import React from 'react';
 
 import { useScheduleContext } from '../../../contexts';
-import { Icon } from './Icon';
 import { Spinner } from './Spinner';
 
 export const Loader = () => {
   const { isLoaded } = useScheduleContext();
+  if (isLoaded) {
+    return null;
+  }
   return (
-    <div
-      className="sticky top-0 z-10 flex justify-center items-center bg-black"
-      style={{ gridColumnStart: 1, gridRowStart: 1, width: 100 }}
-    >
-      {isLoaded ? <Icon /> : <Spinner />}
+    <div className="absolute top-0 bottom-0 left-0 right-0 z-10 flex justify-center items-center dark:bg-blue-300/50">
+      <Spinner />
     </div>
   );
 };
