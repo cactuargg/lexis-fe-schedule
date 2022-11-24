@@ -1,7 +1,0 @@
-.Container {
-  @apply rounded-lg text-left p-4 m-1 shadow-inner hover:animate-pulse hover:cursor-pointer border text-white dark:bg-sky-600/50 dark:border-sky-500;
-}
-
-.NotSingleDay {
-  @apply dark:bg-fuchsia-600/50 dark:border-fuchsia-500
-}

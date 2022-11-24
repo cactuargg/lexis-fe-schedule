@@ -2,7 +2,11 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      gridAutoColumns: {
+        'schedule-columns': 200,
+      },
+    },
   },
   plugins: [],
 };

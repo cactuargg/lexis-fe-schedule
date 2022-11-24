@@ -1,20 +1,24 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 
 import { IDay } from '../../../../models';
-import css from './Day.module.css';
 
-export const Day: React.FC<IDay> = ({ matrix, gridRow, date }) => {
+export const Day: React.FC<IDay> = ({ matrix, gridColumnStart, date }) => {
   const [style, setStyle] = useState<CSSProperties>({
-    gridRow: `${gridRow + 1} / span ${matrix.length}`,
+    gridRow: `${gridColumnStart + 1} / span ${matrix.length}`,
   });
 
   useEffect(() => {
-    setStyle({ gridRow: `${gridRow + 1} / span ${matrix.length}` });
-  }, [matrix.length, gridRow]);
+    setStyle({ gridRow: `${gridColumnStart + 1} / span ${matrix.length}` });
+  }, [matrix.length, gridColumnStart]);
 
   return (
-    <div className={css.Container} style={style}>
-      <div className={css.Name}>{date.toDateString()}</div>
+    <div
+      className="sticky left-0 flex text-white border-b border-r dark:bg-slate-900 dark:border-slate-200/5 justify-center items-center"
+      style={style}
+    >
+      <div className="text-2xl p-2 justify-center items-center text-slate-400">
+        {date.toDateString()}
+      </div>
     </div>
   );
 };

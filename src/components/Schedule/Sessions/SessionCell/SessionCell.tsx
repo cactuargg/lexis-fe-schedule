@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { IScheduleSessionEntry } from '../../../../models';
-import css from './SessionCell.module.css';
 
 export const SessionCell: React.FC<IScheduleSessionEntry> = ({
   title,
@@ -10,7 +9,12 @@ export const SessionCell: React.FC<IScheduleSessionEntry> = ({
   isSingleDay,
   ...style
 }) => {
-  const className = [css.Container, isSingleDay ? '' : css.NotSingleDay].join(' ').trim();
+  const className = [
+    'rounded-lg text-left p-4 m-1 shadow-inner hover:animate-pulse hover:cursor-pointer border text-white dark:bg-sky-600/50 dark:border-sky-500',
+    isSingleDay ? '' : 'dark:bg-fuchsia-600/50 dark:border-fuchsia-500',
+  ]
+    .join(' ')
+    .trim();
 
   return (
     <div className={className} title={title} style={style}>

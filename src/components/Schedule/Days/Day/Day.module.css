@@ -1,7 +1,0 @@
-.Container {
-  @apply sticky left-0 flex text-white border-b border-r dark:bg-slate-900 dark:border-slate-200/5 justify-center items-center;
-}
-
-.Name {
-  @apply text-2xl p-2 justify-center items-center text-slate-400;
-}
