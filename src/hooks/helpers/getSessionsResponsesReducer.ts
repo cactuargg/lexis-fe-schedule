@@ -1,9 +1,11 @@
-import { ICategorySession, IDays, IScheduleSessionEntry } from '../../models';
+import { ICategorySession, IDays, IScheduleSessionEntry, IStartEnd } from '../../models';
 import { formatToAMPM, getDate } from '../../utils';
 import { TIMES } from '../constants';
-import { updateDaysDictionary } from './updateDaysDictionary';
+import { fillMatrices } from './fillMatrices';
+import { getSessionCellGrid } from './getSessionCellGrid';
+import { updateDays } from './updateDays';
 
-export function getSessionsResponsesReducer(days: IDays) {
+export function getSessionsResponsesReducer(days: IDays, trim: IStartEnd) {
   return (acc: IScheduleSessionEntry[], session: ICategorySession) => {
     const dateStart = new Date(session.start);
     const dateEnd = new Date(session.end);
@@ -14,63 +16,46 @@ export function getSessionsResponsesReducer(days: IDays) {
     const [timeStart] = formatToAMPM(dateStart);
     const [timeEnd] = formatToAMPM(dateEnd);
 
-    updateDaysDictionary(days, dateStart, dateStringStart);
-    updateDaysDictionary(days, dateEnd, dateStringEnd);
+    updateDays(days, dateStart, dateStringStart);
+    updateDays(days, dateEnd, dateStringEnd);
 
     const dayIndexStart = days.order.indexOf(dateStringStart);
     const dayIndexEnd = days.order.indexOf(dateStringEnd);
 
     const timeIndexStart = TIMES.indexOf(timeStart);
     const timeIndexEnd = TIMES.indexOf(timeEnd);
-    const isSingleDay = dayIndexStart === dayIndexEnd;
+    const isSingleDay =
+      dayIndexStart === dayIndexEnd || (dayIndexEnd - dayIndexStart === 1 && timeIndexEnd === 0);
 
-    for (let d = dayIndexStart; d <= dayIndexEnd; d += 1) {
-      const day = days.dictionary[days.order[d]];
-      const { matrix } = day;
+    const day = days.dictionary[days.order[dayIndexStart]];
 
-      let start = 0;
-      let end = TIMES.length;
+    const params = {
+      days,
+      dayIndexes: {
+        start: dayIndexStart,
+        end: dayIndexEnd,
+      },
+      timeIndexes: {
+        start: dayIndexStart * TIMES.length + timeIndexStart,
+        end: dayIndexEnd * TIMES.length + timeIndexEnd,
+      },
+    };
 
-      if (d === dayIndexStart) {
-        start = timeIndexStart;
-      }
+    const [row, span] = getSessionCellGrid(params);
 
-      if (d === dayIndexEnd) {
-        if (timeIndexEnd === 0) {
-          // Don't add session if it ends on 12:00 AM next day
-          // eslint-disable-next-line no-continue
-          continue;
-        }
-        end = timeIndexEnd;
-      }
+    fillMatrices({ ...params, row });
 
-      let row = 0;
-      while (matrix[row].slice(start, end).some((value) => value === 1)) {
-        row += 1;
-        if (!matrix[row]) {
-          matrix.push(Array<number>(TIMES.length).fill(0));
-        }
-      }
-
-      // Fill cells with 1
-      for (let i = start; i < end; i += 1) {
-        matrix[row][i] = 1;
-      }
-
-      const span = end - start;
-
-      acc.push({
-        title: `${session.title}`,
-        start: timeStart,
-        end: timeEnd,
-        gridColumnStart: `${2 + start}`,
-        gridColumnEnd: `span ${span}`,
-        isSingleDay,
-        get gridRow() {
-          return day.gridRow + row + 1;
-        },
-      });
-    }
+    acc.push({
+      title: session.title,
+      start: timeStart,
+      end: timeEnd,
+      get gridColumnStart() {
+        return day.timeStart - trim.start + timeIndexStart;
+      },
+      gridColumnEnd: `span ${span}`,
+      isSingleDay,
+      gridRow: row + 2,
+    });
     return acc;
   };
 }

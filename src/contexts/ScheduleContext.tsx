@@ -6,8 +6,9 @@ import { IScheduleContext } from '../models';
 export const ScheduleContext = React.createContext<IScheduleContext>({
   sessions: [],
   rowsNumber: 0,
-  days: { order: [], dictionary: {} },
+  days: { order: [], dictionary: {}, matrix: [] },
   isLoaded: false,
+  trim: { start: 0, end: 0 },
 });
 
 export const ScheduleProvider = ({ children }: { children: ReactNode }) => {

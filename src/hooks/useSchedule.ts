@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchSessionsByCategoryIds } from '../api';
 import { IDays, IScheduleSessionEntry } from '../models';
 import { onError } from '../utils';
+import { DAY_MATRIX_INITIAL_STRING } from './constants';
 import { useCategoriesIds } from './useCategoriesIds';
 import { useLoadingState } from './useLoadingState';
 import { useOnSuccessCallback } from './useOnSuccessCallback';
@@ -11,9 +12,19 @@ export const useSchedule = () => {
   const { ids } = useCategoriesIds();
   const [sessions, setSessions] = useState<IScheduleSessionEntry[]>([]);
   const [rowsNumber, setRowsNumber] = useState(0);
-  const days = useRef<IDays>({ dictionary: {}, order: [] });
 
-  const params = useMemo(() => ({ days: days.current, setSessions, setRowsNumber }), []);
+  const days = useRef<IDays>({ dictionary: {}, order: [], matrix: [DAY_MATRIX_INITIAL_STRING] });
+  const trim = useRef({ start: 0, end: 0 });
+
+  const params = useMemo(
+    () => ({
+      days: days.current,
+      setSessions,
+      setRowsNumber,
+      trim: trim.current,
+    }),
+    [],
+  );
   const onSuccess = useOnSuccessCallback(params);
   const { isLoaded, finishFetchCallback } = useLoadingState();
 
@@ -51,5 +62,6 @@ export const useSchedule = () => {
     rowsNumber,
     days: days.current,
     isLoaded,
+    trim: trim.current,
   };
 };

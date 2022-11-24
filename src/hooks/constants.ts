@@ -48,3 +48,7 @@ export const TIMES = [
   '11:00 PM',
   '11:30 PM',
 ];
+
+export const EMPTY = '0';
+export const FILLED = '1';
+export const DAY_MATRIX_INITIAL_STRING = String.prototype.padStart(48, EMPTY);

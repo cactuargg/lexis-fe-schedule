@@ -1,2 +1,2 @@
+export * from './fetchCategories';
 export * from './getSessionsResponsesReducer';
-export { fetchCategories } from './fetchCategories';
