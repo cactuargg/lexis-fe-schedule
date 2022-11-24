@@ -31,10 +31,6 @@ export function getSessionsResponsesReducer(days: IDays, trim: IStartEnd) {
 
     const params = {
       days,
-      dayIndexes: {
-        start: dayIndexStart,
-        end: dayIndexEnd,
-      },
       timeIndexes: {
         start: dayIndexStart * TIMES.length + timeIndexStart,
         end: dayIndexEnd * TIMES.length + timeIndexEnd,
