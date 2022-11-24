@@ -1,22 +1,23 @@
 import { useCallback } from 'react';
 
-import { ICategorySession } from '../models';
-import { IOnSuccessCallbackParams } from '../models/OnSuccessCallbackParams';
+import { ICategorySession, IOnSuccessCallbackParams, IStartEnd } from '../models';
+import { getDayMatrixTrimEndIndex, getDayMatrixTrimStartIndex } from '../utils';
 import { getSessionsResponsesReducer } from './helpers';
 
 export function useOnSuccessCallback(params: IOnSuccessCallbackParams) {
   return useCallback(
     (response: ICategorySession[]) => {
-      const { days, setRowsNumber, setSessions } = params;
-      const sessions = response.reduce(getSessionsResponsesReducer(days), []);
+      const { days, setRowsNumber, setSessions, trim } = params;
+      const sessions = response.reduce(getSessionsResponsesReducer(days, trim), []);
+      const { matrix } = days;
 
-      const newRowsNumber = days.order.reduce((acc, key) => {
-        const day = days.dictionary[key];
-        day.gridRow = acc;
-        return acc + day.matrix.length;
-      }, 1);
+      const newTrim: IStartEnd = {
+        start: getDayMatrixTrimStartIndex(days.matrix),
+        end: getDayMatrixTrimEndIndex(days.matrix) + 1,
+      };
 
-      setRowsNumber(newRowsNumber);
+      Object.assign(trim, newTrim);
+      setRowsNumber(matrix.length);
       setSessions((prevState) => [...prevState, ...sessions]);
     },
     [params],
